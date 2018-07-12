@@ -23,7 +23,7 @@ from schemas import products_schema
 from schemas import product_schema
 
 
-@app.route('/api/v1/products')
+@app.route('/api/v1/products', methods=['GET'])
 def products():
     products = db.session.query(Product).all()
     return products_schema.jsonify(products)
