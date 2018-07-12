@@ -28,6 +28,15 @@ def products():
     products = db.session.query(Product).all()
     return products_schema.jsonify(products)
 
+@app.route('/api/v1/products/<int:id>', methods=['DELETE'])
+def delete_product(id):
+    product = db.session.query(Product).get(id)
+    if product:
+        db.session.delete(product)
+        db.session.commit()
+        return (f"{product.name} was deleted",202)
+    else:
+        return('already deleted or not existing',202)
 
 @app.route('/api/v1/products', methods=['POST'])
 def add_product():
@@ -35,7 +44,7 @@ def add_product():
     product.name = request.form['name']
     db.session.add(product)
     db.session.commit()
-    return product_schema.jsonify(product)
+    return (product_schema.jsonify(product),201)
 
 @app.route('/api/v1/products/<int:id>')
 def get_product(id):
