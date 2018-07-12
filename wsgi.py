@@ -1,9 +1,10 @@
 from flask import Flask
 from config import Config
-from dotenv import load_dotenv
+
  # Order is important here!
 
 try:
+    from dotenv import load_dotenv
     load_dotenv()
 except:
     pass # Heroku does not use .env
