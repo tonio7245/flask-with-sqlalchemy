@@ -21,6 +21,7 @@ from models import Product
 from schemas import products_schema
 
 
+
 @app.route('/api/v1/products')
 def products():
     products = db.session.query(Product).all()
