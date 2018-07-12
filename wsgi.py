@@ -46,6 +46,15 @@ def add_product():
     db.session.commit()
     return (product_schema.jsonify(product),201)
 
+
+@app.route('/api/v1/products/<int:id>', methods=['PATCH'])
+def change_product(id):
+    product = db.session.query(Product).get(id)
+    product.name = request.form['name']
+    db.session.commit()
+    return (product_schema.jsonify(product),200)
+
+
 @app.route('/api/v1/products/<int:id>')
 def get_product(id):
     product = db.session.query(Product).get(id)
