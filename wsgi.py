@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from config import Config
 
  # Order is important here!
@@ -63,4 +63,10 @@ def get_product(id):
 
 @app.route('/')
 def hello():
-    return "Hello World!"
+    products = db.session.query(Product).all()
+    return render_template('home.html',products = products)
+
+@app.route('/product/<int:id>')
+def display_product(id):
+    product = product = db.session.query(Product).get(id)
+    return render_template('product.html',product = product)
